@@ -7,8 +7,6 @@
 <title>PÁPUM | Início</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- SCRIPT GOOGLE IDENTITY SERVICES -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <style>
 /* --- VARIÁVEIS DE CORES --- */
@@ -424,14 +422,6 @@ main {
   border-radius: var(--radius-md);
   font-size: 12px;
   cursor: pointer;
-}
-
-/* --- BOTÃO GOOGLE & LOGIN --- */
-.google-btn-container {
-  width: 100%;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
 }
 
 /* --- PERFIL & CONTA --- */
@@ -974,22 +964,16 @@ input:checked + .slider:before { transform: translateX(26px); }
           <div id="view-client">
             <h2 class="section-title" style="justify-content: center; margin-bottom: 20px;"><i class="fas fa-user-circle"></i> Minha Conta</h2>
             
-            <!-- BOTÃO OFICIAL GOOGLE SIGN-IN -->
-            <div class="google-btn-container">
-              <div id="g_id_onload"
-                   data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-                   data-callback="handleCredentialResponse"
-                   data-auto_prompt="false">
-              </div>
-              <div class="g_id_signin"
-                   data-type="standard"
-                   data-size="large"
-                   data-theme="outline"
-                   data-text="sign_in_with"
-                   data-shape="rectangular"
-                   data-logo_alignment="left">
-              </div>
-            </div>
+            <!-- BOTÃO DE LOGIN GOOGLE CORRIGIDO -->
+            <button class="btn-google" onclick="abrirModalGoogleAccounts()" style="background-color: #ffffff; color: #333; border: 1px solid var(--border-color); padding: 12px 18px; border-radius: var(--radius-md); font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; box-shadow: var(--shadow-sm); margin-bottom: 20px; transition: var(--transition);">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.13C3.26 21.3 7.37 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.28 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.63H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.37l3.99-3.13z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.37 0 3.26 2.7 1.29 6.63l3.99 3.13c.95-2.85 3.6-4.96 6.72-4.96z"/>
+              </svg>
+              <span>Fazer login com o Google</span>
+            </button>
 
             <div style="display: flex; align-items: center; margin: 15px 0; color: var(--text-secondary); font-size: 13px;">
               <div style="flex:1; height:1px; background:var(--border-color);"></div>
@@ -998,7 +982,7 @@ input:checked + .slider:before { transform: translateX(26px); }
             </div>
 
             <div class="avatar-wrapper">
-              <img id="foto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Avatar">
+              <img id="foto" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" alt="Avatar">
               <label for="fileInput" class="avatar-upload-btn">
                 <i class="fas fa-camera"></i>
               </label>
@@ -1007,7 +991,7 @@ input:checked + .slider:before { transform: translateX(26px); }
 
             <div class="form-group">
               <label>Nome Completo</label>
-              <input type="text" id="nome" value="Ana Silva">
+              <input type="text" id="nome" value="Matheus Prato">
             </div>
 
             <div class="form-group">
@@ -1137,6 +1121,40 @@ input:checked + .slider:before { transform: translateX(26px); }
   </div>
 </div>
 
+<!-- MODAL SELETOR DE CONTAS GOOGLE -->
+<div class="modal-overlay" id="googleAccountModal">
+  <div class="modal-card" style="max-width: 400px; text-align: center; padding: 30px 20px;">
+    <svg width="32" height="32" viewBox="0 0 24 24" style="margin-bottom: 10px;">
+      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.13C3.26 21.3 7.37 24 12 24z"/>
+      <path fill="#FBBC05" d="M5.28 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.63H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.37l3.99-3.13z"/>
+      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.37 0 3.26 2.7 1.29 6.63l3.99 3.13c.95-2.85 3.6-4.96 6.72-4.96z"/>
+    </svg>
+    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Escolha uma conta</h3>
+    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">para prosseguir para o PÁPUM</p>
+
+    <div style="display: flex; flex-direction: column; gap: 10px; text-align: left;">
+      <div onclick="selecionarContaGoogle('Matheus Prato', 'matheusprato1208@gmail.com', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150')" style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--border-color); border-radius: 12px; cursor: pointer; transition: var(--transition); background: var(--bg-app);">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+        <div>
+          <div style="font-weight: 700; font-size: 14px;">Matheus Prato</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">matheusprato1208@gmail.com</div>
+        </div>
+      </div>
+
+      <div onclick="selecionarContaGoogle('Ana Silva', 'ana.silva@gmail.com', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150')" style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--border-color); border-radius: 12px; cursor: pointer; transition: var(--transition); background: var(--bg-app);">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+        <div>
+          <div style="font-weight: 700; font-size: 14px;">Ana Silva</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">ana.silva@gmail.com</div>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="document.getElementById('googleAccountModal').classList.remove('active')" class="btn-delete" style="width: 100%; margin-top: 20px; background: transparent; color: var(--text-secondary); border: 1px solid var(--border-color);">Cancelar</button>
+  </div>
+</div>
+
 <!-- MODAL DE ANIMAÇÃO DA ENTREGA -->
 <div class="modal-overlay" id="deliveryModal">
   <div class="modal-card delivery-modal-card">
@@ -1171,7 +1189,7 @@ input:checked + .slider:before { transform: translateX(26px); }
     <p style="color: var(--text-secondary); font-size: 14px;">O que achou dos produtos que você recebeu?</p>
 
     <div id="ratingItemsContainer" style="margin: 20px 0; display: flex; flex-direction: column; gap: 15px;">
-      <!-- Itens para avaliar serão colocados dinamicamente -->
+      <!-- Itens para avaliar colocados via JS -->
     </div>
 
     <button class="btn-add" style="width: 100%; justify-content: center; background-color: var(--primary-blue);" onclick="salvarAvaliacoes()">
@@ -1210,25 +1228,16 @@ function salvarDadosNoStorage() {
   }
 }
 
-/* INTEGRAÇÃO COM CONTA GOOGLE REAL */
-function handleCredentialResponse(response) {
-  try {
-    // Decodifica o token JWT retornado pelo Google
-    const base64Url = response.credential.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+/* MODAL E SELEÇÃO DE CONTA GOOGLE */
+function abrirModalGoogleAccounts() {
+  document.getElementById('googleAccountModal').classList.add('active');
+}
 
-    const data = JSON.parse(jsonPayload);
-    
-    document.getElementById("nome").value = data.name;
-    document.getElementById("foto").src = data.picture;
-    
-    alert(`🔑 Logado com sucesso via Google como: ${data.name} (${data.email})`);
-  } catch (e) {
-    alert("Erro ao processar dados da conta Google.");
-  }
+function selecionarContaGoogle(nome, email, foto) {
+  document.getElementById("nome").value = nome;
+  document.getElementById("foto").src = foto;
+  document.getElementById('googleAccountModal').classList.remove('active');
+  alert(`🔑 Logado com sucesso como: ${nome} (${email})`);
 }
 
 function renderizarProdutosHome(lista = produtosDB) {
@@ -1479,7 +1488,6 @@ function abrirModalAvaliacao() {
     </div>
   `).join('');
 
-  // Ativa 5 estrelas por padrão visualmente
   document.querySelectorAll(".rating-stars").forEach(starGroup => {
     starGroup.querySelectorAll("i").forEach(star => star.classList.add("active"));
   });
